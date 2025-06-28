@@ -8,12 +8,13 @@
  * @class SimpleTCA9555
  * @brief A simple library to control the TCA9555 I/O expander in input mode with interrupt support.
  *
- * This library supports reading all 16 inputs (P00-P07 on Port 0, P10-P17 on Port 1).
- * Inputs are defined as `input_1` to `input_16` and can be redefined in your sketch
- * with custom names using `#define`. It supports optional interrupt-driven updates
- * and adjustable I2C clock speed.
+ * This library provides access to all 16 inputs (P00-P07 on Port 0, P10-P17 on Port 1) as public
+ * boolean variables (`input_1` to `input_16`). Inputs can be renamed using `#define` for readability
+ * (e.g., `#define reed_switch expander.input_1`). Supports interrupt-driven updates and adjustable
+ * I2C clock speed.
  */
-class SimpleTCA9555 {
+class SimpleTCA9555
+{
 public:
     /**
      * @brief Constructor for the SimpleTCA9555 class.
@@ -35,30 +36,41 @@ public:
      */
     void update();
 
-    bool input_1()  const { return _inputs & (1 << 0); }  // P00
-    bool input_2()  const { return _inputs & (1 << 1); }  // P01
-    bool input_3()  const { return _inputs & (1 << 2); }  // P02
-    bool input_4()  const { return _inputs & (1 << 3); }  // P03
-    bool input_5()  const { return _inputs & (1 << 4); }  // P04
-    bool input_6()  const { return _inputs & (1 << 5); }  // P05
-    bool input_7()  const { return _inputs & (1 << 6); }  // P06
-    bool input_8()  const { return _inputs & (1 << 7); }  // P07
-    bool input_9()  const { return _inputs & (1 << 8); }  // P10
-    bool input_10() const { return _inputs & (1 << 9); }  // P11
-    bool input_11() const { return _inputs & (1 << 10); } // P12
-    bool input_12() const { return _inputs & (1 << 11); } // P13
-    bool input_13() const { return _inputs & (1 << 12); } // P14
-    bool input_14() const { return _inputs & (1 << 13); } // P15
-    bool input_15() const { return _inputs & (1 << 14); } // P16
-    bool input_16() const { return _inputs & (1 << 15); } // P17
+    // Methods for output control
+    void setOutputPin(uint8_t pin, bool state);
+    void setPortAsOutput(uint8_t portNumber);
+    void setPortAsInput(uint8_t portNumber);
+
+    // Public boolean variables for each input
+    bool input_1;  // P00
+    bool input_2;  // P01
+    bool input_3;  // P02
+    bool input_4;  // P03
+    bool input_5;  // P04
+    bool input_6;  // P05
+    bool input_7;  // P06
+    bool input_8;  // P07
+    bool input_9;  // P10
+    bool input_10; // P11
+    bool input_11; // P12
+    bool input_12; // P13
+    bool input_13; // P14
+    bool input_14; // P15
+    bool input_15; // P16
+    bool input_16; // P17
 
 private:
     uint8_t _address;
     volatile uint16_t _inputs;
+    uint16_t _outputs;
+    uint16_t _config = 0xFFFF; // Default all inputs
     int _interruptPin;
 
+    void updateConfig();
+    void writeOutputs();
+
     static void IRAM_ATTR interruptHandler();
-    static SimpleTCA9555* instance;
+    static SimpleTCA9555 *instance;
     void updateFromISR();
 };
 
