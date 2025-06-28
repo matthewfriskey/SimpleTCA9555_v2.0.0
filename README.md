@@ -9,7 +9,7 @@ A simple library for the TCA9555 I/O expander with optional interrupt-driven rea
 - Adjustable I2C clock speed (default 100 kHz, max 400 kHz for TCA9555).
 - Compatible with PlatformIO and Arduino framework on all ESP32 variants (ESP32, S2, S3, C3, etc.).
 
-## Output Control (NEW in 2.1.0!)
+## Output Control (NEW in 2.2.0!)
 - Control outputs individually or set entire ports easily:
 ```cpp
 expander.setPortAsOutput(0); // Port 0 as outputs

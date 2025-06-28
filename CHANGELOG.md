@@ -2,7 +2,7 @@
 
 All notable changes to the `SimpleTCA9555` library will be documented in this file.
 
-## [2.1.0] - 2025-06-28
+## [2.2.0] - 2025-06-28
 ### Added
 - Output control functionality.
   - Methods: `setOutputPin(pin, state)`, `setPortAsOutput(port)`, and `setPortAsInput(port)`.

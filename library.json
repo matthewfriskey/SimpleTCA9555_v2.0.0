@@ -1,6 +1,6 @@
 {
     "name": "SimpleTCA9555",
-    "version": "2.1.0",
+    "version": "2.2.0",
     "description": "A simple library for the TCA9555 I/O expander with optional interrupt-driven reading of inputs, output control, and adjustable I2C clock speed for Arduino on ESP32.",
     "keywords": "TCA9555, I2C, interrupt, input, output, ESP32, 16-bit, clock-speed",
     "authors": [
